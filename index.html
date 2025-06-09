@@ -18,12 +18,13 @@
         />
       </a>
       <div class="navLinks">
-        <a href="tempPage.html" class="navLink">Create Book</a>
+        <p onclick="modalHub()" class="navLink">Create Book</p>
         <a href="https://github.com/novabrix?tab=repositories" class="navLink"
           >About Us</a
         >
-        <a href="tempPage.html" class="navLink">Checkout</a>
+        <a href="index.html" class="navLink">Checkout</a>
       </div>
+      <div class="checkoutCounter">0</div>
     </nav>
     <main>
       <div class="hero">
@@ -37,114 +38,74 @@
         </p>
       </div>
       <div class="bestsellers">
-        <h1 class="bestTitle">>> BESTSELLERS:</h1>
-        <div class="bestBooks">
-          <div class="bookshelf">
-            <div class="book">
-              <div class="bookCover">
-                <img
-                  src="img/bookIMG/warriorPosterCopy.jpg"
-                  alt="Dummy Book Image"
-                  class="bookIMG"
-                />
-              </div>
-              <div class="bookDescr">
-                <h2 class="bookTitle">Dummy Book One</h2>
-                <h3 class="bookAuthor">By Idriis Yusuf</h3>
-                <h3 class="bookRating">Rating: 5/5</h3>
-                <h3 class="bookGenre">Genre: Any/Misc</h3>
-                <button class="bookCheckout">Check Out!</button>
-              </div>
-            </div>
-            <div class="book">
-              <div class="bookCover">
-                <img
-                  src="img/unknownBookIMG.jpg"
-                  alt="Dummy Book Image"
-                  class="bookIMG"
-                />
-              </div>
-              <div class="bookDescr">
-                <h2 class="bookTitle">Dummy Book Two</h2>
-                <h3 class="bookAuthor">By Idriis Yusuf</h3>
-                <h3 class="bookRating">Rating: 4/5</h3>
-                <h3 class="bookGenre">Genre: Any/Misc</h3>
-                <button class="bookCheckout">Check Out!</button>
-              </div>
-            </div>
-            <div class="book">
-              <div class="bookCover">
-                <img
-                  src="img/unknownBookIMG.jpg"
-                  alt="Dummy Book Image"
-                  class="bookIMG"
-                />
-              </div>
-              <div class="bookDescr">
-                <h2 class="bookTitle">Dummy Book Three</h2>
-                <h3 class="bookAuthor">By Idriis Yusuf</h3>
-                <h3 class="bookRating">Rating: 4/5</h3>
-                <h3 class="bookGenre">Genre: Any/Misc</h3>
-                <button class="bookCheckout">Check Out!</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="bookshelf">
-            <div class="book">
-              <div class="bookCover">
-                <img
-                  src="img/bookIMG/warriorPosterCopy.jpg"
-                  alt="Dummy Book Image"
-                  class="bookIMG"
-                />
-              </div>
-              <div class="bookDescr">
-                <h2 class="bookTitle">Dummy Book One</h2>
-                <h3 class="bookAuthor">By Idriis Yusuf</h3>
-                <h3 class="bookRating">Rating: 5/5</h3>
-                <h3 class="bookGenre">Genre: Any/Misc</h3>
-                <button class="bookCheckout">Check Out!</button>
-              </div>
-            </div>
-            <div class="book">
-              <div class="bookCover">
-                <img
-                  src="img/unknownBookIMG.jpg"
-                  alt="Dummy Book Image"
-                  class="bookIMG"
-                />
-              </div>
-              <div class="bookDescr">
-                <h2 class="bookTitle">Dummy Book Two</h2>
-                <h3 class="bookAuthor">By Idriis Yusuf</h3>
-                <h3 class="bookRating">Rating: 4/5</h3>
-                <h3 class="bookGenre">Genre: Any/Misc</h3>
-                <button class="bookCheckout">Check Out!</button>
-              </div>
-            </div>
-            <div class="book">
-              <div class="bookCover">
-                <img
-                  src="img/unknownBookIMG.jpg"
-                  alt="Dummy Book Image"
-                  class="bookIMG"
-                />
-              </div>
-              <div class="bookDescr">
-                <h2 class="bookTitle">Dummy Book Three</h2>
-                <h3 class="bookAuthor">By Idriis Yusuf</h3>
-                <h3 class="bookRating">Rating: 4/5</h3>
-                <h3 class="bookGenre">Genre: Any/Misc</h3>
-                <button class="bookCheckout">Check Out!</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <h1 class="bestTitle">>> FEATURED:</h1>
+        <div class="bestBooks"></div>
       </div>
-      
-      <div class="overlay"></div>
-      <div class="modal"></div>
+
+      <div class="modal hidden">
+        <button class="modalCloser" onclick="closeModal()">X</button>
+        <h1 class="modalTitle">= Create a New Book! =</h1>
+        <h3 class="modalTitleSupp">
+          Thank you for contributing to the Library of Alexandria.
+        </h3>
+        <form>
+          <div class="formRow">
+            <div class="formEl">
+              <label for="namer">Book Title:</label>
+              <input
+                type="text"
+                id="namer"
+                minlength="3"
+                maxlength="15"
+                required
+                placeholder="e.g: The Hobbit"
+              />
+            </div>
+            <div class="formEl">
+              <label for="author">Author:</label>
+              <input type="text" id="author" minlength="3" maxlength="15" />
+            </div>
+          </div>
+          <div class="formRow">
+            <div class="formEl">
+              <label for="rater">Rating (out of 5):</label>
+              <input type="number" min="1" max="5" id="rater" />
+            </div>
+            <div class="formEl">
+              <label for="genre">Genre:</label>
+              <input type="text" id="genre" min="5" maxlength="15" />
+            </div>
+          </div>
+          <div class="formRow">
+            <div class="formEl">
+              <label for="publisher">Book Publisher:</label>
+              <input type="text" id="publisher" maxlength="15"/>
+            </div>
+            <div class="formEl">
+              <label for="mainChars">Main Character:</label>
+              <input
+                type="text"
+                id="mainChars"
+                placeholder="e.g: Bilbo Baggins"
+                maxlength="15"
+              />
+            </div>
+          </div>
+          <div class="formRow">
+            <div class="formEl">
+              <label for="descriptor">Book Description:</label>
+              <textarea
+                id="descriptor"
+                minlength="15"
+                maxlength="150"
+              ></textarea>
+            </div>
+          </div>
+        </form>
+        <button class="submitter" type="submit" onclick="sendModal()">
+          Publish Book!
+        </button>
+      </div>
     </main>
     <footer>
       <p class="closer">== more by NOVABRIX (GitHub) ==</p>

@@ -1,14 +1,17 @@
 "use strict";
 const bestBooks = document.querySelector(".bestBooks");
-const bookCount = 6;
+const checkoutCounter = document.querySelector('.checkoutCounter');
+let bookCount = 0;
+let checkoutCount = 0;
+
 
 /*
   == TASKS:
-  1. Style the create book modal window 
+  1. Style the create book modal window (done)
   2. Complete logic for librarian function (done)
-  3. Add footer (work)
-  4. Add functionality to create book modal window
-  5. Small checkout page
+  3. Add footer (skipped)
+  4. Add functionality to create book modal window (done)
+  5. Checkout functionality
  */
 
 class Book {
@@ -27,7 +30,6 @@ class Book {
 }
 
 const library = [];
-
 function librarian(
   nameX,
   authorX,
@@ -48,8 +50,15 @@ function librarian(
     mainCharX
   );
 
-  const bookshelf = document.createElement("div");
-  bookshelf.className = "bookshelf";
+  let bookshelf;
+  if (bookCount % 3 === 0) {
+    bookshelf = document.createElement("div");
+    bookshelf.className = "bookshelf";
+  } else {
+    const bookshelves = document.querySelectorAll(".bookshelf");
+    bookshelf = bookshelves[bookshelves.length - 1];
+  }
+
   const actualBook = document.createElement("div");
   actualBook.className = "book";
   const bookCover = document.createElement("div");
@@ -80,24 +89,110 @@ function librarian(
   bookDescr.appendChild(bookRating);
   bookDescr.appendChild(bookGenre);
   bookDescr.appendChild(bookCheckout);
-    /* bookAuthor,
-    bookRating,
-    bookGenre,
-    bookCheckout */
 
-  bookIMG.src = "img/unknownBookIMG.jpg";
-  bookTitle.textContent = nameX;
-  bookAuthor.textContent = `By ${authorX}`
-  bookRating.textContent = `Rating: ${ratingX}/5`
-  bookGenre.textContent = `Genre: ${genreX}`
-  bookCheckout.textContent = `Check Out!`
+  if (bookCount % 2) {
+    bookIMG.src = "img/bookIMG/redBook.jpg";
+  } else if (bookCount % 3) {
+    bookIMG.src = "img/bookIMG/greenBook.jpg"
+  } else if (bookCount % 5) {
+    bookIMG.src = "img/bookIMG/blueBook.jpg"
+  } else {
+    bookIMG.src = "img/bookIMG/purpleBook.jpg"
+  }
+ /*  bookIMG.src = "img/bookIMG/redBook.jpg"; */
+  bookTitle.textContent = nameX || "Unknown";
+  bookAuthor.textContent = `By ${authorX || "Anonymous"}`;
+  bookRating.textContent = `Rating: ${ratingX || 0}/5`;
+  bookGenre.textContent = `Genre: ${genreX || "Misc/Other"}`;
+  bookCheckout.textContent = `Add to Cart!`;
 
+  bookCheckout.addEventListener("click", function (e) {
+    bookCheckout.classList.add("clicked");
+    bookCheckout.classList.remove("bookCheckout")
+    bookCheckout.textContent = "Added to Cart!";
+    checkoutCount++;
+    checkoutCounter.textContent = checkoutCount;
+  });
+
+  const bookID = tempBook.bookID;
+  bookCount++;
 }
+
 librarian(
   "The Hobbit",
   "J.R.R Tolkien",
   4.5,
   "Fantasy Novel",
   1937,
-  "a small hobbit who goes on an adventure with an old wizard to recover stolen treasure from a dragon. The story is about metamorphosis and how one can change for the better."
+  `a small hobbit who goes on an adventure with an old wizard to recover stolen
+  treasure from a dragon. The story is about metamorphosis and how one can
+  change for the better.`
 );
+
+librarian(
+  "Animal Farm",
+  "George Orwell",
+  4.6,
+  "Allegorical Fable",
+  1937,
+  `a small hobbit who goes on an adventure with an old wizard to recover stolen
+  treasure from a dragon. The story is about metamorphosis and how one can
+  change for the better.`
+);
+
+librarian(
+  "Atomic Habits",
+  "James Clear",
+  4.8,
+  "Self-Help",
+  2018,
+  `how seemingly small changes, like getting 1% better everyday, result in large gains over time.`
+);
+
+;
+
+let okSignal = true;
+const modalReal = document.querySelector(".modal");
+
+function modalHub() {
+  if (okSignal) {
+    okSignal = false;
+    openModal();
+  } else if ((okSignal = false)) {
+    okSignal = true;
+    closeModal();
+  }
+}
+
+const openModal = () => {
+  okSignal = false;
+  modalReal.classList.remove("hidden");
+};
+
+const closeModal = () => {
+  okSignal = true;
+  modalReal.classList.add("hidden");
+};
+
+const submitter = document.querySelector("#submitter");
+const namer = document.querySelector("#namer");
+const author = document.querySelector("#author");
+const rater = document.querySelector("#rater");
+const genre = document.querySelector("#genre");
+const publishers = document.querySelector("#publisher");
+const mainChars = document.querySelector("#mainChars");
+const descriptor = document.querySelector("#descriptor");
+
+function sendModal() {
+  const newBook = [
+    namer.value,
+    author.value,
+    rater.value,
+    genre.value,
+    publishers.value,
+    descriptor.value,
+    mainChars.value,
+  ];
+  librarian(...newBook);
+  closeModal();
+}
